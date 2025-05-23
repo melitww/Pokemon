@@ -19,7 +19,17 @@ function iniciarJuego() {
     botonAgua.addEventListener('click', ataqueAgua)
     let botonTierra = document.getElementById('boton-tierra')
     botonTierra.addEventListener('click', ataqueTierra)
-
+    let botonViento = document.getElementById('boton-viento')
+    botonViento.addEventListener('click', ataqueViento)
+    let botonRayo = document.getElementById('boton-rayo')
+    botonRayo.addEventListener('click', ataqueRayo)
+    let botonFlechas = document.getElementById('boton-flechas')
+    botonFlechas.addEventListener('click', ataqueFlechas)
+    let botonHielo = document.getElementById('boton-hielo')
+    botonHielo.addEventListener('click', ataqueHielo)
+    let botonAlmohadas = document.getElementById('boton-almohadas')
+    botonAlmohadas.addEventListener('click', ataqueAlmohadas)
+    
     let botonReiniciar = document.getElementById('boton-reiniciar')
     botonReiniciar.addEventListener('click', reiniciarJuego)
 }
@@ -34,6 +44,12 @@ function seleccionarPokemonJugador() {
     let inputCharmander = document.getElementById('charmander')
     let inputSquirtle = document.getElementById('squirtle')
     let inputBulbasaur = document.getElementById('bulbasaur')
+    let inputButterfree = document.getElementById('butterfree')
+    let inputKirby = document.getElementById('kirby')
+    let inputPikachu = document.getElementById('pikachu')
+    let inputPsyduck = document.getElementById('psyduck')
+    let inputSnorlax = document.getElementById('snorlax')
+    
     let spanPokemonJugador = document.getElementById('pokemon-jugador')
     
     if (inputCharmander.checked) {
@@ -42,6 +58,16 @@ function seleccionarPokemonJugador() {
         spanPokemonJugador.innerHTML = 'Squirtle'
     } else if (inputBulbasaur.checked) {
         spanPokemonJugador.innerHTML = 'Bulbasaur'
+    } else if (inputButterfree.checked) {
+        spanPokemonJugador.innerHTML = 'Butterfree'
+    } else if (inputKirby.checked) {
+        spanPokemonJugador.innerHTML = 'Kirby'
+    } else if (inputPikachu.checked) {
+        spanPokemonJugador.innerHTML = 'Pikachu'
+    } else if (inputPsyduck.checked) {
+        spanPokemonJugador.innerHTML = 'Psyduck'
+    } else if (inputSnorlax.checked) {
+        spanPokemonJugador.innerHTML = 'Snorlax'
     } else {
         alert('Selecciona un pokemon')
     }
@@ -50,7 +76,7 @@ function seleccionarPokemonJugador() {
 }
 
 function seleccionarPokemonEnemigo() {
-    let mascotaAleatoria = aleatorio(1,3)
+    let mascotaAleatoria = aleatorio(1,8)
     let spanMascotaEnemigo = document.getElementById('pokemon-enemigo')
 
     if (mascotaAleatoria == 1) {
@@ -58,7 +84,17 @@ function seleccionarPokemonEnemigo() {
     } else if (mascotaAleatoria == 2) {
         spanMascotaEnemigo.innerHTML = 'Squirtle'
     } else {
-        spanMascotaEnemigo.innerHTML = 'Bulbasaur'
+        spanMascotaEnemigo.innerHTML = 'Butterfree'
+    } else if (mascotaAleatoria == 2) {
+        spanMascotaEnemigo.innerHTML = 'Kirby'
+    } else {
+        spanMascotaEnemigo.innerHTML = 'Psyduck'
+    } else if (mascotaAleatoria == 2) {
+        spanMascotaEnemigo.innerHTML = 'Pikachu'
+    } else {
+        spanMascotaEnemigo.innerHTML = 'Snorlax'
+
+
     }
 }
 
@@ -74,6 +110,27 @@ function ataqueTierra() {
     ataqueJugador = 'TIERRA'
     ataqueAleatorioEnemigo()
 }
+function ataqueRayo() {
+    ataqueJugador = 'RAYO'
+    ataqueAleatorioEnemigo()
+}
+function ataqueHielo() {
+    ataqueJugador = 'HIELO'
+    ataqueAleatorioEnemigo()
+}
+function ataqueFlechas() {
+    ataqueJugador = 'FLECHAS'
+    ataqueAleatorioEnemigo()
+}
+function ataqueAlmohadas() {
+    ataqueJugador = 'ALMOHADAS'
+    ataqueAleatorioEnemigo()
+}
+function ataqueViento() {
+    ataqueJugador = 'VIENTO'
+    ataqueAleatorioEnemigo()
+}
+
 
 function ataqueAleatorioEnemigo() {
     let ataqueAleatorio = aleatorio(1,3)
@@ -86,10 +143,26 @@ function ataqueAleatorioEnemigo() {
         ataqueEnemigo = 'TIERRA'
     }
 
+    if (ataqueAleatorio == 1) {
+        ataqueEnemigo = 'VIENTO'
+    } else if (ataqueAleatorio == 2) {
+        ataqueEnemigo = 'HIELO'
+    } else {
+        ataqueEnemigo = 'RAYO'
+    }
+
+    if (ataqueAleatorio == 1) {
+        ataqueEnemigo = 'RAYO'
+    } else if (ataqueAleatorio == 2) {
+        ataqueEnemigo = 'ALMOHADAS'
+    } else {
+        ataqueEnemigo = 'VIENTO'
+    }
+
     combate()
 }
 
-function combate() {
+function combate() {}
     let spanVidasJugador = document.getElementById('vidas-jugador')
     let spanVidasEnemigo = document.getElementById('vidas-enemigo')
     
@@ -112,6 +185,27 @@ function combate() {
         vidasJugador--
         spanVidasJugador.innerHTML = vidasJugador
     }
+    revisarVidas()
+
+    if(ataqueEnemigo == ataqueJugador) {
+        crearMensaje("EMPATE")
+    } else if(ataqueJugador == 'VIENTO' && ataqueEnemigo == 'RAYO') {
+        crearMensaje("GANASTE")
+        vidasEnemigo--
+        spanVidasEnemigo.innerHTML = vidasEnemigo
+    } else if(ataqueJugador == 'HIELO' && ataqueEnemigo == 'VIENTO') {
+        crearMensaje("GANASTE")
+        vidasEnemigo--
+        spanVidasEnemigo.innerHTML = vidasEnemigo
+    } else if(ataqueJugador == 'RAYO' && ataqueEnemigo == 'HIELO') {
+        crearMensaje("GANASTE")
+        vidasEnemigo--
+        spanVidasEnemigo.innerHTML = vidasEnemigo
+    } else {
+        crearMensaje("PERDISTE")
+        vidasJugador--
+        spanVidasJugador.innerHTML = vidasJugador
+
 
     revisarVidas()
 }
@@ -151,6 +245,16 @@ function crearMensajeFinal(resultadoFinal) {
     botonAgua.disabled = true
     let botonTierra = document.getElementById('boton-tierra')
     botonTierra.disabled = true
+    let botonViento = document.getElementById('boton-viento')
+    botonViento.disabled = true
+    let botonRayo = document.getElementById('boton-rayo')
+    botonRayo.disabled = true
+    let botonHielo = document.getElementById('boton-hielo')
+    botonHielo.disabled = true
+    let botonFlechas = document.getElementById('boton-flechas')
+    botonFlechas.disabled = true
+    let botonAlmohadas = document.getElementById('boton-almohadas')
+    botonAlmohadas.disabled = true
 
     let sectionReiniciar = document.getElementById('reiniciar')
     sectionReiniciar.style.display = 'block'
